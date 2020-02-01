@@ -6,7 +6,7 @@ public class Platform : MonoBehaviour
 {
     public Sprite broken;
     public Sprite repaired;
-    public SpriteRenderer renderer;
+    new public SpriteRenderer renderer;
     public Collider2D hitBox;
     public Collider2D trigger;
 

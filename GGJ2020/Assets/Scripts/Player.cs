@@ -8,17 +8,19 @@ public class Player : MonoBehaviour
 
     PlayerState state;
     public float moveSpeed;
+    public float movement;
     public float jumpLimit;
     public float constForce;
     public float jumpForce;
     public float direction;
+    public Sprite chargingSprite;
+    public Sprite idleSprite;
+
     public GameObject wrench;
     new Rigidbody2D rigidbody;
-    public float movement;
+    private float _timer;
+    public float fireRate;
 
-
-
-    // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -41,7 +43,7 @@ public class Player : MonoBehaviour
             this.GetComponent<SpriteRenderer>().flipX = false;
         }
 
-        if(Input.GetKey(KeyCode.Space) && state == PlayerState.Grounded)
+        if(Input.GetButton("Jump") && state == PlayerState.Grounded)
         {
             state = PlayerState.Charging;
             StartCoroutine(ChargeJumpCo());
@@ -52,7 +54,7 @@ public class Player : MonoBehaviour
             var newWrench = GameObject.Instantiate(wrench, this.transform);
         }
 
-        if(rigidbody.velocity.y != 0)
+        if (rigidbody.velocity.y != 0)
         {
             state = PlayerState.Airborne;
         }
@@ -62,16 +64,25 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void ThrowWrench()
+    {
+        
+    }
+
     IEnumerator ChargeJumpCo()
     {
-        while(Input.GetKey(KeyCode.Space) && state == PlayerState.Charging)
+        while(Input.GetButton("Jump") && state == PlayerState.Charging)
         {
+            this.GetComponent<SpriteRenderer>().sprite = chargingSprite;
+
             rigidbody.velocity = new Vector2(0,0);
             if(jumpForce < jumpLimit)
             jumpForce++;
 
-            yield return new WaitForSeconds(.15f);
+            yield return new WaitForSeconds(.13f);
         }
+
+        this.GetComponent<SpriteRenderer>().sprite = idleSprite;
 
         Vector2 velocity = rigidbody.velocity;
         velocity.y = jumpForce;

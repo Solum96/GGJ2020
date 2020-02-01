@@ -23,7 +23,7 @@ public class Counter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(currentDistance < target.position.y && rb.velocity.y > 0.1)
+        if(target != null && currentDistance < target.position.y && rb.velocity.y > 0.1)
         {
             currentDistance = target.position.y - start;
         }
