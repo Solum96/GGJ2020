@@ -8,11 +8,13 @@ public class Player : MonoBehaviour
 
     PlayerState state;
     public float moveSpeed;
-    public float jumpForce;
     public float jumpLimit;
-
-    Rigidbody2D rigidbody;
-    float movement;
+    public float constForce;
+    public float jumpForce;
+    public float direction;
+    public GameObject wrench;
+    new Rigidbody2D rigidbody;
+    public float movement;
 
 
 
@@ -27,11 +29,17 @@ public class Player : MonoBehaviour
     void Update()
     {
         movement = Input.GetAxis("Horizontal") * moveSpeed;
+        if(movement != 0){ direction = Input.GetAxisRaw("Horizontal"); }
 
         if(Input.GetKey(KeyCode.Space) && state == PlayerState.Grounded)
         {
             state = PlayerState.Charging;
             StartCoroutine(ChargeJumpCo());
+        }
+
+        if(Input.GetKeyDown(KeyCode.P) && state != PlayerState.Charging)
+        {
+            ThrowWrench();
         }
 
         if(rigidbody.velocity.y != 0)
@@ -48,8 +56,6 @@ public class Player : MonoBehaviour
     {
         while(Input.GetKey(KeyCode.Space) && state == PlayerState.Charging)
         {
-            // TODO: Set velocity.x to 0 when charging
-
             if(jumpForce < jumpLimit)
             jumpForce++;
 
@@ -59,7 +65,12 @@ public class Player : MonoBehaviour
         Vector2 velocity = rigidbody.velocity;
         velocity.y = jumpForce;
         rigidbody.velocity = velocity;
-        jumpForce = 1;
+        jumpForce = constForce;
+    }
+
+    void ThrowWrench()
+    {
+        var newWrench = GameObject.Instantiate(wrench, this.transform);
     }
 
     void FixedUpdate()
