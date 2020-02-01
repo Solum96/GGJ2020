@@ -17,13 +17,13 @@ public class Player : MonoBehaviour
     public Sprite idleSprite;
 
     public GameObject wrench;
-    new Rigidbody2D rigidbody;
+    Rigidbody2D rb;
     private float _timer;
     public float fireRate;
 
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         state = PlayerState.Grounded;
     }
 
@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
             var newWrench = GameObject.Instantiate(wrench, this.transform);
         }
 
-        if (rigidbody.velocity.y != 0)
+        if (rb.velocity.y != 0)
         {
             state = PlayerState.Airborne;
         }
@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
         {
             this.GetComponent<SpriteRenderer>().sprite = chargingSprite;
 
-            rigidbody.velocity = new Vector2(0,0);
+            rb.velocity = new Vector2(0,0);
             if(jumpForce < jumpLimit)
             jumpForce++;
 
@@ -84,9 +84,9 @@ public class Player : MonoBehaviour
 
         this.GetComponent<SpriteRenderer>().sprite = idleSprite;
 
-        Vector2 velocity = rigidbody.velocity;
+        Vector2 velocity = rb.velocity;
         velocity.y = jumpForce;
-        rigidbody.velocity = velocity;
+        rb.velocity = velocity;
         jumpForce = constForce;
     }
 
@@ -94,9 +94,9 @@ public class Player : MonoBehaviour
     {
         if(state != PlayerState.Charging)
         {
-            Vector2 velocity = rigidbody.velocity;
+            Vector2 velocity = rb.velocity;
             velocity.x = movement;
-            rigidbody.velocity = velocity;
+            rb.velocity = velocity;
         }
     }
 }

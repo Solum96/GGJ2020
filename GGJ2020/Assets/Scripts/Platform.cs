@@ -6,21 +6,21 @@ public class Platform : MonoBehaviour
 {
     public Sprite broken;
     public Sprite repaired;
-    new public SpriteRenderer renderer;
+    public SpriteRenderer spriteRenderer;
     public Collider2D hitBox;
     public Collider2D trigger;
 
     void Start()
     {
-        renderer = GetComponent<SpriteRenderer>();
-        renderer.sprite = broken;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = broken;
     }
     void OnTriggerEnter2D(Collider2D item)
     {
         if(item.gameObject.tag == "Wrench")
         {
             hitBox.enabled = true;
-            renderer.sprite = repaired;
+            spriteRenderer.sprite = repaired;
             GameObject.Destroy(item.gameObject);
             trigger.enabled = false;
         }

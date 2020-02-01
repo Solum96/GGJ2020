@@ -5,9 +5,9 @@ using UnityEngine;
 public class Wrench : MonoBehaviour
 {
     Rigidbody2D rb;
-    new Collider2D collider;
+    Collider2D _collider;
     public Player player;
-    public new Camera camera;
+    public Camera _camera;
 
     float _direction;
     public float xForce;
@@ -17,7 +17,7 @@ public class Wrench : MonoBehaviour
     void Awake()
     {
         _direction = Input.GetAxisRaw("Horizontal");
-        collider = GetComponent<Collider2D>();
+        _collider = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = new Vector2(xForce * _direction, yForce);
     }
@@ -25,7 +25,7 @@ public class Wrench : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.y < camera.transform.position.y - 10)
+        if(transform.position.y < _camera.transform.position.y - 10)
         {
             GameObject.Destroy(gameObject);
         }
