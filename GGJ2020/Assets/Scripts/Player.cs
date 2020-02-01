@@ -28,8 +28,18 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         movement = Input.GetAxis("Horizontal") * moveSpeed;
         if(movement != 0){ direction = Input.GetAxisRaw("Horizontal"); }
+
+        if(Input.GetAxisRaw("Horizontal") == -1)
+        {
+            this.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if(Input.GetAxisRaw("Horizontal") == 1)
+        {
+            this.GetComponent<SpriteRenderer>().flipX = false;
+        }
 
         if(Input.GetKey(KeyCode.Space) && state == PlayerState.Grounded)
         {

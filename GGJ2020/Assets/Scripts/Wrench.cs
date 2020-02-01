@@ -18,11 +18,8 @@ public class Wrench : MonoBehaviour
     {
         _direction = Input.GetAxisRaw("Horizontal");
         collider = GetComponent<Collider2D>();
-        collider.enabled = false;
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = new Vector2(xForce * _direction, yForce);
-
-        StartCoroutine(SetColliderCo());
     }
 
     // Update is called once per frame
@@ -32,12 +29,6 @@ public class Wrench : MonoBehaviour
         {
             GameObject.Destroy(gameObject);
         }
-    }
-
-    IEnumerator SetColliderCo()
-    {
-        yield return new WaitForSeconds(.3f);
-        this.collider.enabled = true;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
