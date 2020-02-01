@@ -40,7 +40,7 @@ public class Wrench : MonoBehaviour
         this.collider.enabled = true;
     }
 
-    void OnCollissionEnter2D(Collision collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject.Destroy(this);
     }

@@ -13,6 +13,15 @@ public class CameraMovement : MonoBehaviour
         yAxis = target.position.y;
     }
 
+    void Update()
+    {
+        if(target.gameObject.transform.position.y < this.transform.position.y - Screen.height / 50)
+        {
+            GameObject.Destroy(target.gameObject);
+            gameObject.GetComponent<CameraMovement>().enabled = false;
+        }
+    }
+
     // Update is called once per frame
     void LateUpdate()
     {

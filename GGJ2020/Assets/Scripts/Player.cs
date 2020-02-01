@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
     {
         while(Input.GetKey(KeyCode.Space) && state == PlayerState.Charging)
         {
+            rigidbody.velocity = new Vector2(0,0);
             if(jumpForce < jumpLimit)
             jumpForce++;
 
