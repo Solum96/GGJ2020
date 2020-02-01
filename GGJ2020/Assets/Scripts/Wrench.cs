@@ -16,10 +16,11 @@ public class Wrench : MonoBehaviour
 
     void Awake()
     {
+        _direction = Input.GetAxisRaw("Horizontal");
         collider = GetComponent<Collider2D>();
         collider.enabled = false;
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = new Vector2(xForce * player.direction, yForce);
+        rb.velocity = new Vector2(xForce * _direction, yForce);
 
         StartCoroutine(SetColliderCo());
     }

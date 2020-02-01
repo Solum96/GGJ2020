@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.P) && state != PlayerState.Charging)
         {
-            ThrowWrench();
+            var newWrench = GameObject.Instantiate(wrench, this.transform);
         }
 
         if(rigidbody.velocity.y != 0)
@@ -66,11 +66,6 @@ public class Player : MonoBehaviour
         velocity.y = jumpForce;
         rigidbody.velocity = velocity;
         jumpForce = constForce;
-    }
-
-    void ThrowWrench()
-    {
-        var newWrench = GameObject.Instantiate(wrench, this.transform);
     }
 
     void FixedUpdate()
